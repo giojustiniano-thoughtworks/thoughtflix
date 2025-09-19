@@ -1,0 +1,102 @@
+---
+globs: src/components/**/*.tsx
+---
+
+# Component Patterns for ThoughtFlix
+
+## Component Structure
+```typescript
+import React, { useState, useCallback, useMemo } from 'react';
+import './ComponentName.css';
+
+interface ComponentProps {
+  readonly requiredProp: string;
+  readonly optionalProp?: number;
+  readonly onAction: (data: SomeType) => void;
+}
+
+export const ComponentName: React.FC<ComponentProps> = React.memo(({
+  requiredProp,
+  optionalProp = defaultValue,
+  onAction,
+}) => {
+  // State
+  const [localState, setLocalState] = useState(initialValue);
+  
+  // Memoized values
+  const memoizedValue = useMemo(() => {
+    return expensiveCalculation(requiredProp);
+  }, [requiredProp]);
+  
+  // Event handlers
+  const handleAction = useCallback((data: SomeType) => {
+    onAction(data);
+  }, [onAction]);
+  
+  return (
+    <div className="component-name">
+      {/* Component JSX */}
+    </div>
+  );
+});
+
+ComponentName.displayName = 'ComponentName';
+```
+
+## Performance Optimization
+- Use `React.memo` for all components
+- Use `useCallback` for event handlers
+- Use `useMemo` for expensive calculations
+- Define proper dependency arrays
+- Split large components into smaller ones
+
+## Custom Hooks
+Extract complex logic into custom hooks:
+```typescript
+const useComponentLogic = (props: ComponentProps) => {
+  const [state, setState] = useState(initialState);
+  
+  const handleAction = useCallback((data: SomeType) => {
+    // Logic here
+  }, [dependencies]);
+  
+  return {
+    state,
+    handleAction,
+  };
+};
+```
+
+## Props Interface
+- Use `readonly` for all props
+- Provide default values for optional props
+- Use descriptive prop names
+- Group related props together
+- Use union types for limited options
+
+## CSS Classes
+- Use BEM methodology: `.component-name__element--modifier`
+- Use CSS modules for scoped styles
+- Follow Netflix-style design patterns
+- Ensure responsive design
+- Use CSS custom properties for theming
+
+## Accessibility
+- Add proper ARIA labels
+- Support keyboard navigation
+- Use semantic HTML elements
+- Provide screen reader support
+- Test with accessibility tools
+
+## Error Boundaries
+- Handle errors gracefully
+- Provide fallback UI
+- Log errors for debugging
+- Don't break the entire app
+
+## Testing Integration
+- Write tests for all user interactions
+- Test accessibility features
+- Mock external dependencies
+- Use realistic test data
+- Follow Given-When-Then pattern

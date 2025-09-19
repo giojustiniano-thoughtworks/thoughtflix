@@ -1,0 +1,113 @@
+---
+globs: *.css
+---
+
+# CSS Patterns for ThoughtFlix
+
+## Design System
+- Follow Netflix-style design patterns
+- Use consistent spacing and typography
+- Implement responsive design for all screen sizes
+- Use CSS custom properties for theming
+
+## BEM Methodology
+```css
+/* Block */
+.movie-card { }
+
+/* Element */
+.movie-card__title { }
+.movie-card__poster { }
+
+/* Modifier */
+.movie-card--featured { }
+.movie-card__title--large { }
+```
+
+## Responsive Design
+```css
+/* Mobile First Approach */
+.component {
+  /* Mobile styles */
+}
+
+@media (min-width: 768px) {
+  .component {
+    /* Tablet styles */
+  }
+}
+
+@media (min-width: 1024px) {
+  .component {
+    /* Desktop styles */
+  }
+}
+```
+
+## CSS Custom Properties
+```css
+:root {
+  --primary-color: #e50914;
+  --secondary-color: #221f1f;
+  --text-color: #ffffff;
+  --text-secondary: #b3b3b3;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+```
+
+## Component Styling
+- Use CSS modules for scoped styles
+- Follow component co-location pattern
+- Use semantic class names
+- Avoid deep nesting (max 3 levels)
+
+## Animation Patterns
+```css
+/* Smooth transitions */
+.transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effects */
+.interactive:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Loading animations */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading {
+  animation: spin 1s linear infinite;
+}
+```
+
+## Layout Patterns
+- Use CSS Grid for complex layouts
+- Use Flexbox for component alignment
+- Implement proper scroll behavior
+- Use `scroll-snap` for carousels
+
+## Accessibility
+- Ensure sufficient color contrast
+- Support keyboard navigation
+- Use focus indicators
+- Provide alternative text for images
+
+## Performance
+- Use `will-change` for animated elements
+- Avoid expensive CSS properties
+- Use `transform` and `opacity` for animations
+- Minimize reflows and repaints
+
+## Cross-browser Compatibility
+- Use vendor prefixes when necessary
+- Test on multiple browsers
+- Use fallbacks for newer CSS features
+- Follow progressive enhancement principles

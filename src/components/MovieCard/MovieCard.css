@@ -1,0 +1,370 @@
+/* MovieCard Component Styles */
+.movie-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  min-height: 300px;
+}
+
+.movie-card--hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-color: #e50914;
+}
+
+.movie-card--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.movie-card--loading {
+  pointer-events: none;
+}
+
+.movie-card--loading .movie-card__poster-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+/* Size variants */
+.movie-card--small {
+  min-height: 200px;
+  max-width: 150px;
+}
+
+.movie-card--medium {
+  min-height: 300px;
+  max-width: 200px;
+}
+
+.movie-card--large {
+  min-height: 400px;
+  max-width: 250px;
+}
+
+/* Poster container */
+.movie-card__poster-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 150%; /* 2:3 aspect ratio */
+  overflow: hidden;
+  background-color: #2a2a2a;
+}
+
+.movie-card__poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.movie-card--hoverable:hover .movie-card__poster {
+  transform: scale(1.05);
+}
+
+/* Loading overlay */
+.movie-card__loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.movie-card__spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e50914;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Movie info */
+.movie-card__info {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.movie-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-card__year {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+  font-weight: 400;
+}
+
+.movie-card__rating {
+  font-size: 12px;
+  color: #ffd700;
+  margin: 0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.movie-card__overview {
+  font-size: 11px;
+  color: #ccc;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+/* Focus styles for accessibility */
+.movie-card:focus {
+  outline: 2px solid #e50914;
+  outline-offset: 2px;
+}
+
+.movie-card:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.movie-card:focus-visible {
+  outline: 2px solid #e50914;
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .movie-card--small {
+    min-height: 180px;
+    max-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .movie-card--medium {
+    min-height: 220px;
+    max-width: 160px;
+    flex-shrink: 0;
+  }
+
+  .movie-card--large {
+    min-height: 280px;
+    max-width: 200px;
+    flex-shrink: 0;
+  }
+
+  .movie-card__info {
+    padding: 10px;
+  }
+
+  .movie-card__title {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  .movie-card__year,
+  .movie-card__rating {
+    font-size: 11px;
+  }
+
+  .movie-card__overview {
+    font-size: 11px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-card--small {
+    min-height: 160px;
+    max-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .movie-card--medium {
+    min-height: 200px;
+    max-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .movie-card--large {
+    min-height: 240px;
+    max-width: 160px;
+    flex-shrink: 0;
+  }
+
+  .movie-card__info {
+    padding: 8px;
+  }
+
+  .movie-card__title {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .movie-card__year,
+  .movie-card__rating {
+    font-size: 10px;
+  }
+
+  .movie-card__overview {
+    font-size: 10px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .movie-card--small {
+    min-height: 140px;
+    max-width: 100px;
+  }
+
+  .movie-card--medium {
+    min-height: 180px;
+    max-width: 120px;
+  }
+
+  .movie-card--large {
+    min-height: 220px;
+    max-width: 140px;
+  }
+
+  .movie-card__info {
+    padding: 6px;
+  }
+
+  .movie-card__title {
+    font-size: 11px;
+  }
+
+  .movie-card__year,
+  .movie-card__rating {
+    font-size: 9px;
+  }
+
+  .movie-card__overview {
+    font-size: 9px;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .movie-card {
+    background-color: #0a0a0a;
+  }
+
+  .movie-card__poster-container {
+    background-color: #1a1a1a;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .movie-card {
+    border: 2px solid #ffffff;
+  }
+
+  .movie-card--hoverable:hover {
+    border-color: #e50914;
+  }
+
+  .movie-card__title {
+    color: #ffffff;
+  }
+
+  .movie-card__year {
+    color: #ffffff;
+  }
+
+  .movie-card__overview {
+    color: #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .movie-card {
+    transition: none;
+  }
+
+  .movie-card--hoverable:hover {
+    transform: none;
+  }
+
+  .movie-card--hoverable:hover .movie-card__poster {
+    transform: none;
+  }
+
+  .movie-card__poster {
+    transition: none;
+  }
+
+  .movie-card__spinner {
+    animation: none;
+  }
+
+  .movie-card--loading .movie-card__poster-container::after {
+    animation: none;
+  }
+}

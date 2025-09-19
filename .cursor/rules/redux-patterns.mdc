@@ -1,0 +1,106 @@
+---
+globs: src/store/**/*.ts
+---
+
+# Redux Patterns for ThoughtFlix
+
+## Slice Structure
+```typescript
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type StateType } from '../../types/redux.types';
+
+const initialState: StateType = {
+  // Initial state
+};
+
+const sliceName = createSlice({
+  name: 'sliceName',
+  initialState,
+  reducers: {
+    actionName: (state, action: PayloadAction<PayloadType>) => {
+      // Reducer logic
+    },
+  },
+});
+
+export const { actionName } = sliceName.actions;
+export default sliceName.reducer;
+```
+
+## State Management Principles
+- Keep state normalized and flat
+- Use Redux Toolkit for all state management
+- Separate concerns into different slices
+- Use `createAsyncThunk` for async operations
+- Keep reducers pure and immutable
+
+## Slice Organization
+- **uiSlice**: UI state (modals, loading, notifications)
+- **moviesSlice**: Movie data and search results
+- **filterSlice**: Filter state and options
+
+## Action Patterns
+```typescript
+// Synchronous actions
+setData: (state, action: PayloadAction<DataType>) => {
+  state.data = action.payload;
+},
+
+// Async thunks
+fetchData: createAsyncThunk(
+  'sliceName/fetchData',
+  async (params: FetchParams, { rejectWithValue }) => {
+    try {
+      const data = await apiService.fetchData(params);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+),
+```
+
+## Selectors
+```typescript
+// Basic selectors
+export const selectData = (state: RootState) => state.sliceName.data;
+
+// Memoized selectors
+export const selectFilteredData = createSelector(
+  [selectData, selectFilters],
+  (data, filters) => filterData(data, filters)
+);
+```
+
+## Custom Hooks
+```typescript
+export const useSliceActions = () => {
+  const dispatch = useAppDispatch();
+  
+  return {
+    setData: useCallback((data: DataType) => {
+      dispatch(setData(data));
+    }, [dispatch]),
+  };
+};
+```
+
+## Error Handling
+- Use `rejectWithValue` in async thunks
+- Handle errors in reducers
+- Provide meaningful error messages
+- Reset errors when appropriate
+
+## Testing Redux
+- Test reducers with different actions
+- Test async thunks with mocked API calls
+- Test selectors with different state shapes
+- Use `configureStore` for test store
+- Mock external dependencies
+
+## Best Practices
+- Use TypeScript for all state types
+- Keep slices focused and single-purpose
+- Use RTK Query for server state when appropriate
+- Avoid storing derived data in state
+- Use proper action naming conventions

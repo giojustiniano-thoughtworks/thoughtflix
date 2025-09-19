@@ -1,0 +1,71 @@
+---
+globs: *.test.ts,*.test.tsx
+---
+
+# Testing Standards for ThoughtFlix
+
+## Testing Framework
+- Use **Vitest** (not Jest) for all testing
+- Use `@testing-library/react` for component testing
+- Use `@testing-library/user-event` for user interactions
+- Use `@testing-library/jest-dom` for DOM assertions
+
+## Test Structure
+Follow Gherkin syntax with Given-When-Then pattern:
+```typescript
+describe('ComponentName', () => {
+  it('GIVEN [context] WHEN [action] THEN [expected result]', () => {
+    // GIVEN
+    const props = { /* test props */ };
+    
+    // WHEN
+    render(<ComponentName {...props} />);
+    
+    // THEN
+    expect(screen.getByText('Expected Text')).toBeInTheDocument();
+  });
+});
+```
+
+## Test Categories
+- **Rendering**: Component renders correctly with different props
+- **User Interactions**: Click, type, keyboard navigation
+- **Edge Cases**: Empty states, error states, invalid data
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
+- **Performance**: Re-renders, memoization, callback stability
+
+## Mocking Patterns
+```typescript
+// Mock external dependencies
+vi.mock('../../services/OMDbService');
+const mockOMDbService = vi.mocked(OMDbService);
+
+// Mock React Router
+vi.mock('react-router-dom', () => ({
+  useNavigate: () => mockNavigate,
+  useLocation: () => mockLocation,
+}));
+
+// Mock Redux
+const mockStore = createTestStore();
+```
+
+## Test Data
+- Use consistent mock data from `src/__mocks__/testMocks.tsx`
+- Create specific test data for edge cases
+- Use realistic data that matches API responses
+- Keep test data minimal but complete
+- Never use `any` type
+
+## Assertions
+- Use specific assertions: `toBeInTheDocument()`, `toHaveClass()`, `toHaveAttribute()`
+- Test both positive and negative cases
+- Verify function calls with `toHaveBeenCalledWith()`
+- Test accessibility with `toHaveAccessibleName()`
+
+## Coverage Requirements
+- Aim for 100% component coverage
+- Test all user interaction paths
+- Cover error states and edge cases
+- Test accessibility features
+- Verify performance optimizations work

@@ -1,0 +1,47 @@
+---
+alwaysApply: true
+---
+
+# ThoughtFlix Project Structure Guide
+
+## Architecture Overview
+This is a React 19 + TypeScript application with Redux Toolkit, React Query, and Vitest testing.
+
+## Key Directories
+- `src/components/` - Reusable React components with co-located tests and styles
+- `src/pages/` - Page-level components (HomePage, MovieDetailsPage, NotFoundPage)
+- `src/hooks/` - Custom React hooks for logic separation
+- `src/store/` - Redux store with slices for state management
+- `src/services/` - API service layer (ApiService, OMDbService)
+- `src/utils/` - Utility functions and helpers
+- `src/types/` - TypeScript type definitions
+- `src/__mocks__/` - Test mocks and utilities
+
+## Component Structure
+Each component follows this pattern:
+```
+ComponentName/
+├── ComponentName.tsx
+├── ComponentName.test.tsx
+├── ComponentName.css
+└── index.ts
+```
+
+## Testing Strategy
+- Use Vitest (not Jest) for all testing
+- Follow TDD with Gherkin syntax (Given-When-Then)
+- Write comprehensive tests for all components and utilities
+- Use `@testing-library/react` for component testing
+- Mock external dependencies with `vi.mock()`
+
+## State Management
+- Use Redux Toolkit for global state
+- Use React Query for server state
+- Use Context API for component-level state sharing
+- Keep state slices focused and single-purpose
+
+## Performance Optimization
+- Use `React.memo` for component memoization
+- Use `useCallback` for event handlers
+- Use `useMemo` for expensive computations
+- Implement proper dependency arrays

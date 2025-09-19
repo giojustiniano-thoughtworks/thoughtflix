@@ -1,0 +1,106 @@
+---
+description: Development workflow and best practices for ThoughtFlix
+---
+
+# Development Workflow for ThoughtFlix
+
+## Code Quality Standards
+- Follow TypeScript strict mode
+- Use ESLint for code linting
+- Use Prettier for code formatting
+- Write comprehensive tests for all features
+- Follow TDD approach with Given-When-Then syntax
+
+## Git Workflow
+```bash
+# Feature development
+git checkout -b feature/amazing-feature
+git add .
+git commit -m "feat: add amazing feature"
+git push origin feature/amazing-feature
+
+# Bug fixes
+git checkout -b fix/bug-description
+git commit -m "fix: resolve bug description"
+```
+
+## Commit Message Convention
+- `feat:` - New features
+- `fix:` - Bug fixes
+- `docs:` - Documentation changes
+- `style:` - Code style changes
+- `refactor:` - Code refactoring
+- `test:` - Test additions/changes
+- `chore:` - Build process or auxiliary tool changes
+
+## Testing Workflow
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run specific test file
+npm test -- ComponentName.test.tsx
+```
+
+## Development Commands
+```bash
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Run linting
+npm run lint
+```
+
+## Code Review Checklist
+- [ ] All tests pass
+- [ ] TypeScript compilation successful
+- [ ] No console.log statements in production code
+- [ ] Proper error handling implemented
+- [ ] Accessibility features included
+- [ ] Performance optimizations applied
+- [ ] Documentation updated if needed
+
+## Component Development Process
+1. Write tests first (TDD)
+2. Implement component with proper TypeScript types
+3. Add CSS styling following design system
+4. Test accessibility features
+5. Optimize performance with React.memo, useCallback, useMemo
+6. Write integration tests
+7. Update documentation
+
+## Debugging Guidelines
+- Use React DevTools for component debugging
+- Use Redux DevTools for state debugging
+- Use React Query DevTools for data fetching
+- Use browser DevTools for performance profiling
+- Add proper error boundaries
+- Use meaningful console.log for debugging (remove before commit)
+
+## Performance Monitoring
+- Monitor bundle size with `npm run build`
+- Use Lighthouse for performance auditing
+- Test with large datasets
+- Monitor Core Web Vitals
+- Use React DevTools Profiler
+
+## Deployment Checklist
+- [ ] All tests passing
+- [ ] Build successful
+- [ ] No TypeScript errors
+- [ ] No ESLint warnings
+- [ ] Performance budget met
+- [ ] Accessibility standards met
+- [ ] Cross-browser testing completed

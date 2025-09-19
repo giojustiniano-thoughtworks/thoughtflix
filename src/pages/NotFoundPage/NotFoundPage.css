@@ -1,0 +1,107 @@
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+  color: #ffffff;
+  padding: 2rem;
+}
+
+.not-found-page__container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.not-found-page__content {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.not-found-page__title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  background: linear-gradient(45deg, #e50914, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.not-found-page__message {
+  font-size: 1.25rem;
+  color: #cccccc;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.not-found-page__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.not-found-page__link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(45deg, #e50914, #ff6b6b);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.not-found-page__link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(229, 9, 20, 0.3);
+  background: linear-gradient(45deg, #ff6b6b, #e50914);
+}
+
+.not-found-page__link:focus {
+  outline: 2px solid #e50914;
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .not-found-page {
+    padding: 1rem;
+  }
+  
+  .not-found-page__content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .not-found-page__title {
+    font-size: 3rem;
+  }
+  
+  .not-found-page__message {
+    font-size: 1.125rem;
+  }
+  
+  .not-found-page__link {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .not-found-page__title {
+    font-size: 2.5rem;
+  }
+  
+  .not-found-page__message {
+    font-size: 1rem;
+  }
+}
+

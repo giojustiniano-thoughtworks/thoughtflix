@@ -1,0 +1,332 @@
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  transition: background-color 0.3s ease;
+}
+
+.navigation__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navigation__brand {
+  flex-shrink: 0;
+}
+
+.navigation__logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e50914;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.navigation__menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.navigation__link {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.navigation__link:hover {
+  color: #b3b3b3;
+  transform: translateY(-1px);
+}
+
+.navigation__link--active {
+  color: white;
+  font-weight: 600;
+}
+
+.navigation__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #e50914;
+  border-radius: 1px;
+}
+
+.navigation__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.navigation__filter-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.navigation__filter-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.navigation__filter-button[aria-expanded="true"] {
+  background-color: #e50914;
+  color: white;
+}
+
+.navigation__filter-icon {
+  font-size: 1.2rem;
+}
+
+.navigation__search-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.navigation__search-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.navigation__search-icon {
+  font-size: 1.2rem;
+}
+
+.navigation__search-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.navigation__search-container {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  border-radius: 8px;
+  padding: 1rem;
+  z-index: 1001;
+  min-width: 300px;
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  animation: slideDown 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navigation__search-bar {
+  width: 100%;
+}
+
+/* Override SearchBar styles for navigation context */
+.navigation__search-bar .search-bar__container {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navigation__search-bar .search-bar--focused .search-bar__container {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #e50914;
+}
+
+.navigation__search-bar .search-bar__input {
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.navigation__search-bar .search-bar__input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navigation__container {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .navigation__menu {
+    gap: 0.75rem;
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .navigation__link {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .navigation__actions {
+    order: 2;
+  }
+
+  .navigation__search-container {
+    right: 0;
+    left: 0;
+    min-width: auto;
+    max-width: none;
+    margin: 0 1rem;
+    position: fixed;
+    top: 80px;
+    left: 1rem;
+    right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation__container {
+    padding: 0.75rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .navigation__brand {
+    order: 1;
+  }
+
+  .navigation__menu {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .navigation__link {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.25rem;
+  }
+
+  .navigation__actions {
+    order: 2;
+    gap: 0.75rem;
+  }
+
+  .navigation__search-container {
+    right: 0;
+    left: 0;
+    min-width: auto;
+    max-width: none;
+    margin: 0 0.75rem;
+    position: fixed;
+    top: 100px;
+    left: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .navigation__logo {
+    font-size: 1.25rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .navigation__container {
+    padding: 0.5rem;
+  }
+
+  .navigation__menu {
+    gap: 0.25rem;
+  }
+
+  .navigation__link {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.2rem;
+  }
+
+  .navigation__search-container {
+    margin: 0 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    top: 90px;
+  }
+
+  .navigation__logo {
+    font-size: 1.1rem;
+  }
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll behavior */
+.navigation.scrolled {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Focus styles for accessibility */
+.navigation__link:focus,
+.navigation__search-button:focus {
+  outline: 2px solid #e50914;
+  outline-offset: 2px;
+}
+
+.navigation__search-bar .search-bar__input:focus,
+.navigation__search-bar .search-bar__search-button:focus,
+.navigation__search-bar .search-bar__clear-button:focus {
+  outline: 2px solid #e50914;
+  outline-offset: 2px;
+}

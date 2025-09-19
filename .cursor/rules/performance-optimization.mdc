@@ -1,0 +1,102 @@
+---
+description: Performance optimization patterns for React components
+---
+
+# Performance Optimization for ThoughtFlix
+
+## React.memo Usage
+```typescript
+export const ComponentName: React.FC<Props> = React.memo(({ prop1, prop2 }) => {
+  // Component logic
+}, (prevProps, nextProps) => {
+  // Custom comparison function if needed
+  return prevProps.prop1 === nextProps.prop1 && prevProps.prop2 === nextProps.prop2;
+});
+```
+
+## useCallback Patterns
+```typescript
+const ComponentName: React.FC<Props> = ({ onAction, data }) => {
+  // Memoize event handlers
+  const handleClick = useCallback((id: string) => {
+    onAction(id);
+  }, [onAction]);
+
+  // Memoize complex calculations
+  const processedData = useMemo(() => {
+    return data.map(item => expensiveTransformation(item));
+  }, [data]);
+
+  return <div onClick={handleClick}>{/* JSX */}</div>;
+};
+```
+
+## useMemo Guidelines
+- Use for expensive calculations
+- Use for object/array creation that would cause re-renders
+- Use for filtered/sorted data
+- Don't overuse - measure first
+
+## Custom Hooks for Logic Separation
+```typescript
+const useComponentLogic = (props: ComponentProps) => {
+  const [state, setState] = useState(initialState);
+  
+  const handleAction = useCallback((data: ActionData) => {
+    // Logic here
+    setState(prevState => ({ ...prevState, data }));
+  }, []);
+  
+  const memoizedValue = useMemo(() => {
+    return expensiveCalculation(state);
+  }, [state]);
+  
+  return {
+    state,
+    handleAction,
+    memoizedValue,
+  };
+};
+```
+
+## Redux Performance
+- Use `createSelector` for derived state
+- Avoid storing derived data in Redux
+- Use `useAppSelector` with proper dependencies
+- Keep selectors pure and memoized
+
+## React Query Optimization
+- Use proper query keys for caching
+- Set appropriate stale times
+- Use `select` option for data transformation
+- Implement proper error boundaries
+
+## Bundle Optimization
+- Use dynamic imports for code splitting
+- Lazy load non-critical components
+- Optimize images and assets
+- Use proper tree shaking
+
+## Rendering Optimization
+- Avoid inline object/function creation in JSX
+- Use `key` prop correctly for lists
+- Minimize DOM updates
+- Use `React.Suspense` for async components
+
+## Memory Management
+- Clean up event listeners
+- Cancel pending requests on unmount
+- Use `useRef` for mutable values
+- Avoid memory leaks in effects
+
+## Performance Monitoring
+- Use React DevTools Profiler
+- Monitor bundle size
+- Track Core Web Vitals
+- Use performance budgets
+
+## Testing Performance
+- Test component re-renders
+- Verify memoization works
+- Test with large datasets
+- Measure render times

@@ -1,0 +1,51 @@
+---
+globs: *.ts,*.tsx
+---
+
+# TypeScript Patterns for ThoughtFlix
+
+## Type Safety
+- Always use strict TypeScript with `noUnusedLocals` and `noUnusedParameters`
+- Define interfaces for all component props
+- Use `type` for unions and `interface` for objects
+- Prefer `readonly` for immutable data structures
+- Never use `any` type
+
+## Component Props
+```typescript
+interface ComponentProps {
+  readonly requiredProp: string;
+  readonly optionalProp?: number;
+  readonly onAction: (data: SomeType) => void;
+}
+```
+
+## Redux Patterns
+- Use `createSlice` for Redux slices
+- Define proper action types with `PayloadAction<T>`
+- Use `RootState` type for selectors
+- Keep actions and reducers pure
+
+## React Query Patterns
+- Use custom hooks for data fetching
+- Define proper query keys
+- Handle loading, error, and success states
+- Use proper TypeScript generics for query results
+
+## Error Handling
+- Use custom error types for different error scenarios
+- Implement proper error boundaries
+- Handle API errors gracefully
+- Provide meaningful error messages to users
+
+## Performance Types
+- Use `React.FC` for functional components
+- Use `React.memo` with proper prop types
+- Define callback types with `useCallback`
+- Use `useMemo` with proper dependency types
+
+## Testing Types
+- Use `vi.Mocked<T>` for mocked functions
+- Define proper test data types
+- Use `describe`, `it`, `expect` from Vitest
+- Follow Given-When-Then pattern in test descriptions

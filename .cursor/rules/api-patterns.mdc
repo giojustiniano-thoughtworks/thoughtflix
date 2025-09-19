@@ -1,0 +1,88 @@
+---
+globs: src/services/**/*.ts,src/hooks/useMoviesQuery/**/*.ts
+---
+
+# API Patterns for ThoughtFlix
+
+## Service Layer Architecture
+- Use `ApiService` as base class for all API services
+- Extend `ApiService` for specific API implementations
+- Handle errors consistently across all services
+- Use TypeScript for all API types
+
+## Service Implementation
+```typescript
+export class SpecificService extends ApiService {
+  constructor(config: ApiConfig) {
+    super(config);
+  }
+
+  async getData(params: GetDataParams): Promise<DataResponse> {
+    try {
+      const response = await this.get<DataResponse>('/endpoint', { params });
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+}
+```
+
+## React Query Integration
+```typescript
+export const useDataQuery = (params: QueryParams) => {
+  return useQuery({
+    queryKey: ['data', params],
+    queryFn: () => dataService.getData(params),
+    staleTime: QUERY_CONFIG.STALE_TIME,
+    gcTime: QUERY_CONFIG.GC_TIME,
+  });
+};
+```
+
+## Error Handling
+- Use custom error types for different error scenarios
+- Transform errors to consistent format
+- Provide meaningful error messages
+- Handle network, server, and validation errors
+
+## Type Safety
+```typescript
+interface ApiResponse<T> {
+  data: T;
+  status: number;
+  message?: string;
+}
+
+interface ApiError {
+  message: string;
+  status?: number;
+  code?: string;
+}
+```
+
+## Configuration Management
+- Use environment variables for API configuration
+- Validate configuration on startup
+- Provide fallback values for development
+- Use different configs for different environments
+
+## Caching Strategy
+- Use React Query for client-side caching
+- Set appropriate stale times
+- Implement proper cache invalidation
+- Use query keys for cache management
+
+## Testing API Services
+- Mock external API calls
+- Test error scenarios
+- Test different response formats
+- Use Vitest for all API testing
+
+## Best Practices
+- Keep services focused on single API
+- Use proper HTTP methods
+- Handle rate limiting
+- Implement retry logic for transient errors
+- Log API calls for debugging
+- Use proper authentication headers

@@ -1,0 +1,1 @@
+export { useMoviesQuery } from './useMoviesQuery';

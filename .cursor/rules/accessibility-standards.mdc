@@ -1,0 +1,124 @@
+---
+description: Accessibility standards and patterns for ThoughtFlix
+---
+
+# Accessibility Standards for ThoughtFlix
+
+## ARIA Labels and Roles
+```typescript
+// Proper ARIA attributes
+<button
+  aria-label="Search for movies"
+  aria-expanded={isSearchOpen}
+  aria-controls="search-results"
+>
+  Search
+</button>
+
+// Semantic HTML
+<nav role="navigation" aria-label="Main navigation">
+  <ul>
+    <li><a href="/" aria-current="page">Home</a></li>
+  </ul>
+</nav>
+```
+
+## Keyboard Navigation
+- Ensure all interactive elements are keyboard accessible
+- Use proper tab order
+- Implement focus management
+- Support Enter and Space key activation
+
+## Screen Reader Support
+```typescript
+// Provide descriptive text
+<img 
+  src={movie.poster} 
+  alt={`${movie.title} movie poster`}
+  role="img"
+/>
+
+// Use proper headings hierarchy
+<h1>Movie Title</h1>
+<h2>Cast & Crew</h2>
+<h3>Reviews</h3>
+```
+
+## Focus Management
+```typescript
+const ComponentName: React.FC<Props> = () => {
+  const focusRef = useRef<HTMLButtonElement>(null);
+  
+  useEffect(() => {
+    if (isOpen && focusRef.current) {
+      focusRef.current.focus();
+    }
+  }, [isOpen]);
+  
+  return (
+    <button ref={focusRef} aria-expanded={isOpen}>
+      Toggle
+    </button>
+  );
+};
+```
+
+## Color and Contrast
+- Ensure sufficient color contrast (WCAG AA minimum)
+- Don't rely solely on color to convey information
+- Provide alternative indicators for color-coded information
+- Test with color blindness simulators
+
+## Form Accessibility
+```typescript
+<form>
+  <label htmlFor="search-input">
+    Search for movies
+  </label>
+  <input
+    id="search-input"
+    type="search"
+    aria-describedby="search-help"
+    required
+  />
+  <div id="search-help">
+    Enter a movie title to search
+  </div>
+</form>
+```
+
+## Error Handling
+```typescript
+// Provide clear error messages
+<div 
+  role="alert" 
+  aria-live="polite"
+  className="error-message"
+>
+  {errorMessage}
+</div>
+
+// Associate errors with form fields
+<input
+  aria-invalid={hasError}
+  aria-describedby={hasError ? "error-message" : undefined}
+/>
+```
+
+## Testing Accessibility
+```typescript
+// Test with screen reader attributes
+expect(screen.getByRole('button', { name: 'Search' })).toBeInTheDocument();
+expect(screen.getByLabelText('Search for movies')).toBeInTheDocument();
+expect(screen.getByRole('navigation')).toBeInTheDocument();
+```
+
+## Best Practices
+- Use semantic HTML elements
+- Provide alternative text for images
+- Ensure proper heading structure
+- Make interactive elements large enough (44px minimum)
+- Provide skip links for navigation
+- Test with actual screen readers
+- Use high contrast mode testing
+- Implement proper focus indicators
